@@ -1,0 +1,33 @@
+server:
+  port: 8084
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+
+weather:
+  api:
+    get-weather-by-city: /weather
+    get-weather-history: /weather/history
+
+open:
+  weather:
+    api:
+      key: 9d297284ee59e505012c4be1a08aa9af
+      geo:
+        value: geoapi
+        url: http://api.openweathermap.org/geo/1.0/
+        path: /direct?q={city}&limit=1&appid=${open.weather.api.key}
+      weather:
+        value: weatherapi
+        url: https://api.openweathermap.org/data/2.5/
+        path: /weather?lat={lat}&lon={lot}&appid=${open.weather.api.key}
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+
